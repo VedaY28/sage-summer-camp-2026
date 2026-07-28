@@ -31,10 +31,6 @@ For each image upload, the nearest sensor reading on the same node is matched by
 
 Images are then downloaded from the SAGE object store using `preprocessing/download_images.py`, which authenticates with the SAGE portal token and caches all images locally. Files are named by sha1-hashing the image URL.
 
-### Why SAGE PM2.5 was not used as ground truth
-
-We originally intended to use the SAGE nodes' own `pm2.5` readings, but after downloading them the data was unusable for all nodes except `W0A4`: the series were either a flat line, physically unrealistic (reporting healthy air during Chicago's worst pollution of the window), or heavily fragmented. The median SAGE AQT PM2.5 is ~0.4 µg/m³, while the median PurpleAir reading is ~65 µg/m³ — a major scale discrepancy. We instead adopted a single unified ground-truth source, **PurpleAir**.
-
 ### PurpleAir ground truth
 
 For each SAGE node we identified the geographically closest PurpleAir station and downloaded the past 14 days of US EPA PM2.5 measurements. Raw reference CSVs live in `purple_air_raw_data/` (one per node, e.g. `w0a4.csv`).
@@ -90,11 +86,11 @@ A **synthetic haze augmentation** (`AddRandomHaze`, p=0.3) overlays random fog/h
 
 - **Backbone**: ResNet50 (ImageNet pretrained), layer4 fine-tuned at LR 1e-5
 - **Head LR**: 5e-4
-- **Batch size**: 32, **Epochs**: 200 (early stopped at epoch 28, patience 20)
+- **Batch size**: 32, **Epochs**: 30 (patience 7)
 - **Label smoothing**: 0.1
 - **Haze augmentation**: p=0.3, max_intensity=0.5
 - **Image size**: 224×224
-- **Best epoch**: 28
+- **Best epoch**: 30
 
 Test-set performance from `models/v6_resnet50_pa151/test_inference/test_metrics.csv`:
 
