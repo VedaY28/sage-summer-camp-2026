@@ -2,8 +2,14 @@
 images/
 images_v2/
 
-# Model weights — files >100MB, GitHub rejects them
-*.pt
+# Model weights — GitHub rejects files >100MB.
+# ResNet-based models (v1, v2, v6) are ~95MB and fit; tracked normally.
+# CLIP-based models (v3, v4, v5) are ~336MB and are blocked individually
+#  — use Git LFS or external storage (e.g. Hugging Face Hub) for those.
+models/v3_clip_haze/best_model.pt
+models/v4_clip_haze_th35/best_model.pt
+models/v5_clip_haze_pa151/best_model.pt
+plugin/models/*.pt
 *.pth
 
 # Python cache
