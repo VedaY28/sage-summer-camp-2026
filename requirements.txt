@@ -1,0 +1,41 @@
+# SageAir — air quality image classifier (Sage Summer Camp 2026)
+#
+# Installs everything needed to run training, preprocessing, test-inference,
+# and the Sage edge-node plugin on a fresh machine (Python 3.10+).
+#
+# The plugin's container build uses the smaller plugin/requirements.txt;
+# this file is the umbrella for development / retraining / reproducing results.
+#
+# Install with:
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# GPU users: replace the torch/torchvision lines below with the wheel index
+# that matches your CUDA version from https://pytorch.org/get-started/locally/
+
+# ── Core numerical / data ────────────────────────────────────────────────
+numpy>=1.24
+pandas>=2.0
+
+# ── Deep learning ────────────────────────────────────────────────────────
+torch>=2.0
+torchvision>=0.15
+open_clip_torch>=2.20        # CLIP ViT-B/32 used in v3/v5 training + inference
+
+# ── Image handling ───────────────────────────────────────────────────────
+Pillow>=9.0
+
+# ── Metrics / preprocessing ──────────────────────────────────────────────
+scikit-learn>=1.0
+
+# ── Plotting (test_inference/*_test_inference.py) ───────────────────────
+matplotlib>=3.7
+
+# ── Sage data download (preprocessing/*, trainScripts data pulls) ────────
+sage-data-client>=0.9
+
+# ── Sage edge plugin (plugin/app.py) ────────────────────────────────────
+# pywaggle provides the `waggle.plugin.Plugin` and `waggle.data.vision.Camera`
+# APIs used by the on-node plugin. Only needed when running the plugin itself
+# (or testing it locally); not required for training/inference offline.
+pywaggle==0.56.*
