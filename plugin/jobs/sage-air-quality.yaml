@@ -1,0 +1,17 @@
+# SageAir air quality classifier job
+# Deploy with: sudo pluginctl deploy -n sage-air-quality docker.io/library/sage-air-quality:0.1.0 -- --camera camera.top --interval 600
+
+version: "0.1.0"
+service: sage-air-quality
+site: <your-node-vsn>
+args:
+  - "--camera"
+  - "camera.top"
+  - "--continuous"
+  - "Y"
+  - "--interval"
+  - "600"
+selector:
+  resource: true
+  architecture:
+    - arm64

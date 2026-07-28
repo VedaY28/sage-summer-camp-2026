@@ -1,0 +1,19 @@
+# Image cache (too large for git — 3.1GB + 14GB)
+images/
+images_v2/
+
+# Model weights — files >100MB, GitHub rejects them
+*.pt
+*.pth
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+
+# Misc test images at repo root
+*.jpg

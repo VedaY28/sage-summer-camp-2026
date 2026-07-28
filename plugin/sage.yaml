@@ -1,0 +1,47 @@
+id: sage-air-quality
+name: sage-air-quality
+description: "Multimodal air quality classifier — predicts good/bad air quality from camera image + temperature/humidity/pressure. Trained on 2 weeks of Sage node data with PM2.5 as the training label."
+version: 0.1.0
+authors:
+  - veday28
+collaborators: []
+license: BSD-3-Clause
+homepage: https://github.com/veday28/sage-air-quality
+keywords:
+  - air-quality
+  - pm25
+  - multimodal
+  - classification
+  - environmental
+  - resnet50
+funding: NSF 1935984
+inputs:
+  - id: camera
+    type: string
+    default: "camera.top"
+    description: "Camera device name (camera.top, camera.bottom) or file://path for testing"
+  - id: continuous
+    type: string
+    default: "Y"
+    description: "Y for continuous loop, N for single capture"
+  - id: interval
+    type: int
+    default: 600
+    description: "Seconds between predictions in continuous mode"
+  - id: model
+    type: string
+    default: "/app/models/best_model.pt"
+    description: "Path to model checkpoint"
+  - id: scaler
+    type: string
+    default: "/app/models/meteo_scaler.pkl"
+    description: "Path to fitted StandardScaler for meteo normalization"
+  - id: timeout
+    type: int
+    default: 30
+    description: "Seconds to wait for sensor readings"
+resources:
+  memory: 4Gi
+  limit:
+    memory: 8Gi
+  architecture: arm64
